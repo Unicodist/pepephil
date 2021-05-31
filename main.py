@@ -36,9 +36,7 @@ def getrandomquotes():
 def addquotes(text):
     today = date.today()
     today = today.strftime('%Y/%b/%d')
-    cursor.execute("""INSERT INTO quotes
-                        VALUES('1','{0}','{1}')
-                    """.format(text, today))
+    cursor.execute("INSERT INTO quotes VALUES('1','{0}','{1}')".format(text, today))
     conn.commit()
 
 
@@ -102,7 +100,6 @@ async def on_message(message):
         if msg.startswith("delete"):
             deleteRow(msg[-1])
             return
-        await displaycommands(message)
 
 
 # Client events end
