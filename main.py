@@ -4,6 +4,7 @@ import discord
 import sqlite3
 from discord_slash import SlashCommand, SlashCommandOptionType, SlashContext
 from discord.ext import commands
+import os
 
 client = discord.Client()
 slash = SlashCommand(client,sync_commands=True)
@@ -42,12 +43,6 @@ def getrandomquotes():
     return choice[1]
 
 
-def getquotecount():
-    cursor.execute("SELECT COUNT(*) from quotes")
-    print(cursor.fetchone())
-    conn.commit()
-
-
 def addquotes(text):
     today = date.today()
     today = today.strftime('%Y/%b/%d')
@@ -55,7 +50,6 @@ def addquotes(text):
                         VALUES('1','{0}','{1}')
                     """.format(text, today))
     conn.commit()
-
 
 
 def deleteRow(rowid):
@@ -105,16 +99,6 @@ async def on_message(message):
             addquotes(msg)
             await message.channel.send("The quote ***{0}*** has been added to out database".format(msg))
             return
-        if msg.startswith("say"):
-            msg = getrandomquotes()
-            await message.channel.send(message.author.mention+" "+msg)
-            return
-        if msg.startswith("help"):
-            await displaycommands(message)
-            return
-        if msg.startswith("list"):
-            await displayquotes(message)
-            return
         if msg.startswith("delete"):
             deleteRow(msg[-1])
             return
@@ -122,4 +106,4 @@ async def on_message(message):
 
 
 # Client events end
-client.run("ODQ2OTY0MzAzMTIyOTIzNTgx.YK3K-Q.0ZJmrmFl0lRfPrOR3DKalNuNWfA")
+client.run(os.getenv('TOKEN'))
