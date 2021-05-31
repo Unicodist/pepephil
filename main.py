@@ -12,6 +12,8 @@ comms = commands.Bot(command_prefix="$")
 conn = sqlite3.connect('quotes.db')
 cursor = conn.cursor()
 
+print(os.environ)
+
 
 async def displaycommands(message):
     await message.channel.send("""
@@ -106,4 +108,4 @@ async def on_message(message):
 
 
 # Client events end
-client.run(os.getenv('TOKEN'))
+client.run("ODQ2OTY0MzAzMTIyOTIzNTgx.YK3K-Q.0ZJmrmFl0lRfPrOR3DKalNuNWfA")
