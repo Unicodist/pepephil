@@ -13,27 +13,14 @@ comms = commands.Bot(command_prefix="$")
 conn = sqlite3.connect('quotes.db')
 cursor = conn.cursor()
 
-print(os.environ)
-
-
-async def displaycommands(message):
-    await message.channel.send("""
-                This is the showcase of pepe's commands
-                Every command starts with $pepe:\n
-                **say** Sends an epic random quote
-                **add ...** is used to add new quotes in the database
-                **help** shows command lists and description
-                **list** Displays all the quotes in the database
-                **delete *<int>* ** removes command with specified row id (can be seen with list command)
-            *Created by*: Unicodist""")
-
 
 async def displayquotes(message):
+    print('display quote requested')
     cursor.execute("SELECT rowid, quote FROM quotes")
     text = ""
     for item in cursor.fetchall():
         text = text + str(item[0])+":"+item[1]+"\n"
-    await message.channel.send(text)
+    return text
 
 
 def getrandomquotes():
@@ -68,8 +55,16 @@ async def pepesays(ctx):
     await ctx.send("This works bro!")
 
 
+@slash.slash(description="Lists all the available quotes with row id")
+async def pepelist(ctx):
+    ctx.send(displayquotes())
+    print('sent a list of commands')
+    
+
+
 @slash.slash(description="shows available commands and a brief description of the bot")
 async def pepehelp(ctx):
+    print('help command recieved')
     response = """
         Hello, Pepe bot was originally created as a learning process of discord bots.
         It is designed by Ashish Neupane (Unicodist)
@@ -81,6 +76,8 @@ async def pepehelp(ctx):
         */pepelist* Lists the available quotes with their corresponding row number
         *$pepe delete <int>* Deletes a quotes corresponding to the given row number
     """
+    ctx.send(response)
+    print('sent command list to the server')
 
 # Slash commands overrides end
 # Client events start
@@ -88,7 +85,7 @@ async def pepehelp(ctx):
 
 @client.event
 async def on_ready():
-    print("The bot is online")
+    print("bot is online")
 
 
 @client.event
