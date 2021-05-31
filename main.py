@@ -1,4 +1,5 @@
 from datetime import date
+import sys
 import random
 import discord
 import sqlite3
