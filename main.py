@@ -55,8 +55,7 @@ async def pepesays(ctx):
 
 @slash.slash(description="Lists all the available quotes with row id")
 async def pepelist(ctx):
-    ctx.send(displayquotes())
-    print('sent a list of commands')
+    await ctx.send(displayquotes())
     
 
 
@@ -74,8 +73,7 @@ async def pepehelp(ctx):
         */pepelist* Lists the available quotes with their corresponding row number
         *$pepe delete <int>* Deletes a quotes corresponding to the given row number
     """
-    ctx.send(response)
-    print('sent command list to the server')
+    await ctx.send(response)
 
 # Slash commands overrides end
 # Client events start
