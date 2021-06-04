@@ -65,9 +65,6 @@ async def on_message(message):
         gifs = gif_client.gifs_search_get("dvIEwJsXejfeH8DP9Anqmw6X9CoLK0wZ",message.content[5:],rating='r')
         gif_list = list(gifs.data)
         await message.channel.send(random.choice(gif_list).embed_url)
-    
-    if message.content.startswith('$insult'):
-        msg = message.content[8:]
         
 
 
