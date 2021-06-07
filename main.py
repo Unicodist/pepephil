@@ -1,4 +1,5 @@
 import discord
+import os
 import requests
 import giphy_client
 import random
@@ -65,7 +66,12 @@ async def on_message(message):
         gifs = gif_client.gifs_search_get("dvIEwJsXejfeH8DP9Anqmw6X9CoLK0wZ",message.content[5:],rating='r')
         gif_list = list(gifs.data)
         await message.channel.send(random.choice(gif_list).embed_url)
+
+    if message.content.startswith('$roe'):
+      await message.channel.send(f"""{message.author.mention}!
+    Hi, Roe here, looking for some-fin? I cod help with that. ;)
+      """)
         
 
 
-client.run("ODQ2OTY0MzAzMTIyOTIzNTgx.YK3K-Q.0ZJmrmFl0lRfPrOR3DKalNuNWfA")
+client.run(os.environ['DISCORDTOKEN'])
