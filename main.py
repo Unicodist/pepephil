@@ -1,5 +1,4 @@
 import discord
-import os
 import requests
 import giphy_client
 import random
@@ -7,10 +6,10 @@ import random
 
 anime_commands = ['waifu','hug','kill','punch','kiss','slap','wink','pat','cuddle','boobs','lesbian','hentai']
 anime_commands_nsfw = anime_commands[-3:]
-print(anime_commands_nsfw)
 client = discord.Client()
 gif_client = giphy_client.DefaultApi()
 nsfw = False
+botSwitch = True
 
 
 async def anime(message):
@@ -42,9 +41,13 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    global botSwitch
     global nsfw
+    
+    if message.content.startswith('$toggle'):
+      botSwitch = not botSwitch
 
-    if message.author == client.user:
+    if message.author == client.user or not botSwitch:
         return
 
     if message.content.startswith('$anime '):
@@ -74,4 +77,4 @@ async def on_message(message):
         
 
 
-client.run(os.environ['DISCORDTOKEN'])
+client.run("ODQ2OTY0MzAzMTIyOTIzNTgx.YK3K-Q.0ZJmrmFl0lRfPrOR3DKalNuNWfA")
